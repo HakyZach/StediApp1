@@ -1,6 +1,6 @@
 
-import React, { useEffect,useState } from 'react';
-import { StyleSheet, Text, View, Image, SafeAreaView , Share, ScrollView, Button} from 'react-native';
+import React, { useEffect, useRef, useState} from 'react';
+import { StyleSheet, Text, View, Image, SafeAreaView, TouchableOpacity, Share, ScrollView, Button} from 'react-native';
 import { Card, CardTitle, CardContent} from 'react-native-material-cards';
 import BarChart from 'react-native-bar-chart';
 import AsyncStorage from '@react-native-async-storage/async-storage';
@@ -17,7 +17,7 @@ const cameraOptions={
 const Profile = (props) => {
   const [userName,setUserName] = useState("");
   // const [permission, requestPermission] = Camera.useCameraPermissions();
-  const [cameraPermision, setCameraPermission] = useState(false)
+  const [cameraPermission, setCameraPermission] = useState(false)
   const[profilePhoto, setProfilePhoto] = useState(null);
   const cameraRef = useRef(null);
   const [cameraReady,setCameraReady] = useState(false);
@@ -28,7 +28,6 @@ const Profile = (props) => {
       setCameraPermission(cameraPermission);
       const userName = await AsyncStorage.getItem('userEmail');
       setUserName(userName);
-      await AsyncStorage.removeItem('profilePhoto')
       const profilePhoto = await AsyncStorage.getItem('profilePhoto');
       setProfilePhoto(profilePhoto);
     };
@@ -54,7 +53,7 @@ const Profile = (props) => {
     if(profilePhoto==null){
       return (
       <View style={styles.container}>
-        <Camera style={styles.camera} ref={container} onCameraReady={()=>{setCameraReadt(true)}}>
+        <Camera style={styles.camera} ref={cameraRef} onCameraReady={()=>{setCameraReady(true)}}>
           <View style={styles.buttonContainer}>
             {cameraReady?<TouchableOpacity style={styles.button} onPress={async ()=> {
 

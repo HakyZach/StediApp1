@@ -39,7 +39,7 @@ const userEmail = await AsyncStorage.getItem('userEmail');
 }
 
 
-}
+
 //Weekly average time
 
 //monthly average time
@@ -143,7 +143,7 @@ const colorsToday = colors[day.getDay()];
     </SafeAreaView>
     </ScrollView>
   );
-;
+};
 
 export default Home;
 const styles = StyleSheet.create({
